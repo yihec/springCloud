@@ -11,7 +11,13 @@
 	<name>springCloud</name>
 
 	<modules>
+		<module>config-server</module>
 		<module>eureka-server</module>
+		<module>hystrix-dashboard</module>
+		<module>server-1</module>
+		<module>server-2</module>
+		<module>service-feign</module>
+		<module>service-zuul</module>
 	</modules>
 
 	<properties>
