@@ -2,17 +2,17 @@
 基本springboot 2.0版本 spring-cloud的使用
 Spring Cloud与Spring Boot版本匹配关系
 
-Spring Cloud	Spring Boot
-Finchley	兼容Spring Boot 2.0.x，不兼容Spring Boot 1.5.x
-Dalston和Edgware	兼容Spring Boot 1.5.x，不兼容Spring Boot 2.0.x
-Camden	兼容Spring Boot 1.4.x，也兼容Spring Boot 1.5.x
-Brixton	兼容Spring Boot 1.3.x，也兼容Spring Boot 1.4.x
-Angel	兼容Spring Boot 1.2.x
+Spring Cloud	                    Spring Boot
+Finchley	                          兼容Spring Boot 2.0.x，不兼容Spring Boot 1.5.x
+Dalston和Edgware	                兼容Spring Boot 1.5.x，不兼容Spring Boot 2.0.x
+Camden	                          兼容Spring Boot 1.4.x，也兼容Spring Boot 1.5.x
+Brixton	                          兼容Spring Boot 1.3.x，也兼容Spring Boot 1.4.x
+Angel	                             兼容Spring Boot 1.2.x
 从Spring Cloud与Spring Boot版本匹配关系可以看出，如果项目使用的spring boot 版本在 2.0以上，那么必须使用spring cloud 版本 为
 
 Finchley.RELEASE版本 这个版本与以前的D版本有一些区别，下面主要讲的就是spring cloud F版本的简单使用
 
-首先介绍下各个module的用途
+首先介绍下各个module的用途：
    1.首先是eureka-server 这是一个服务注册中心,所有的服务都会在此上面管理,在 Application 上增加@EnableEurekaServer注解即可,
  Eureka服务端可以部署成为高可用，每一个服务器都会复制注册的服务状态到其他服务器
    2.config-server 配置中心,将各个服务配置保存在git,用于统一话管理配置文件,在 Application 上增加@EnableConfigServer注解即可。
@@ -36,3 +36,11 @@ Finchley.RELEASE版本 这个版本与以前的D版本有一些区别，下面�
                   这样就算调用服务的代码存在bug或者由于其他原因导致自己所在线程池被耗尽时, 不会对系统的其他服务造成影响. 
                   但是带来的代价就是维护多个线程池会对系统带来额外的性能开销. 
                   如果是对性能有严格要求而且确信自己调用服务的客户端代码不会出问题的话, 可以使用Hystrix的信号模式(Semaphores)来隔离资源.
+     
+     另外当服务越来越多的时候，这时候就需要用到服务链路追踪(Spring Cloud Sleuth)
+     在spring Cloud为F版本的时候，已经不需要自己构建Zipkin Server了，只需要下载jar即可，下载地址：
+     https://dl.bintray.com/openzipkin/maven/io/zipkin/java/zipkin-server/ 然后启动，
+     再打开http://localhost:9411/的界面，点击Dependencies,可以发现服务的依赖关系
+     
+ 4
+  
