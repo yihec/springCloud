@@ -16,7 +16,6 @@
 		<module>hystrix-dashboard</module>
 		<module>server-1</module>
 		<module>server-2</module>
-		<module>service-feign</module>
 		<module>service-zuul</module>
 	</modules>
 

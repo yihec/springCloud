@@ -4,19 +4,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class ServerController {
 
     @Autowired
-    private RestTemplate restTemplate;
+    ServerService serverService;
     private final Logger logger = LoggerFactory.getLogger(getClass());
-    @GetMapping("/hello2")
-    public String hello(@RequestParam(value = "name", defaultValue = "forezp") String name) {
-        logger.info("===<call trace-1>===");
-        return restTemplate.getForObject("http://localhost:2001/hello?name="+name, String.class);
+
+    @GetMapping("/HelloServer2")
+    public String HelloServer2( String name,HttpServletRequest request){
+        logger.info("=HelloServer2==<call trace-2, TraceId={}, SpanId={}>===",
+                request.getHeader("X-B3-TraceId"), request.getHeader("X-B3-SpanId"));
+
+        return serverService.HelloServer2(name);
     }
 }
