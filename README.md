@@ -44,7 +44,15 @@ Finchley.RELEASE版本 这个版本与以前的D版本有一些区别，下面�
 
      
  4：service-zuul   路由网关(zuul)服务，zuul是微服务架构的不可或缺的一部分，提供动态路由，监控，安全，权限认证等服务。可以在这里面进行统一的比如异常处理，权限认证等等。其实跟spring中的uri过滤器有点像，首先所有的请求第一时间经过这里，然后通过过滤处理，跳转不同的页面
-5：hystrix-dashboard    断路器监控(Hystrix Dashboard)  在微服务架构中为例保证程序的可用性，防止程序出错导致网络阻塞，出现了断路器模型。断路器的状况反应了一个程序的可用性和健壮性，它是一个重要指标。Hystrix Dashboard是作为断路器状态的一个组件，提供了数据监控和友好的图形化界面。
+ 5.消息总线(Spring Cloud Bus) Spring Cloud Bus 将分布式的节点用轻量的消息代理连接起来。它可以用于广播配置文件的更改或者服务之间的通讯，也可以用于监控。主要就是说，当修改了配置中心的配置之后，以前一般来说需要重新启动项目，而现在不需要进行重启就可以实现配置刷新。
+       1.引入spring-cloud-starter-bus-amqp
+       2.配置rabbitmq信息
+       3.项目中引入@RefreshScope 注解，然后启动项目
+此时rabbitmq管理页面，会自动创建一个 topic 类型的 Exchange
+
+接着修改配置中心，也就是git仓库里面的配置信息，然后调用http://localhost:2001/actuator/bus-refresh/  记得要使用POST方式，最好在postman里面调用，浏览器中是不行的
+
+6：hystrix-dashboard    断路器监控(Hystrix Dashboard)  在微服务架构中为例保证程序的可用性，防止程序出错导致网络阻塞，出现了断路器模型。断路器的状况反应了一个程序的可用性和健壮性，它是一个重要指标。Hystrix Dashboard是作为断路器状态的一个组件，提供了数据监控和友好的图形化界面。
 启动server-1项目，输入网址http://localhost:2001/hystrix，
 
 
